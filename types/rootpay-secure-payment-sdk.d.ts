@@ -6,7 +6,7 @@
 /** Current environment in which code is running. 
  * dev mode gives extra debugging logs, make sure to use production mode on production
  */
-type Mode = "dev" | "production"
+export type Mode = "dev" | "production"
 
 /** 
  * Theme configuration options for customizing SDK appearance
@@ -21,9 +21,11 @@ export type Theme = {
 /**
  * Configuration options required to initialize the SDK
  */
-type SDKConfig = {
-    /** Root Credit key for authentication */
-    key: string;
+export type SDKConfig = {
+    /** Root Credit clientId for authentication */
+    clientId: string;
+    /** Root Credit clientSecret for authentication */
+    clientSecret: string;
     /** Root element ID where SDK will be mounted */
     rootId: string;
     /** Environment mode for SDK */
@@ -33,12 +35,14 @@ type SDKConfig = {
 }
 
 /** Status of payment transaction */
-type Status = "success" | "failure"
+export type Status = "success" | "failure"
+
+export type SubscribeCallback = (callback: (res: Result) => void) => void;
 
 /**
  * Result object returned in callback after transaction
  */
-type Result = {
+export type Result = {
     /** Status indicating success/failure of transaction */
     status: Status;
     /** Detailed message about transaction result */
@@ -64,5 +68,5 @@ export class RootPaySDK {
      * Subscribes to payment status updates
      * @param callback - Function to handle payment result
      */
-    subscribe(callback: (res: Result) => void): void;
+    subscribe: SubscribeCallback;
 }

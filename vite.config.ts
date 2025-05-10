@@ -10,7 +10,7 @@ export default defineConfig({
     lib: {
       //Defines the entry point for the library build. It resolves 
       //to src/index.ts,indicating that the library starts from this file.
-      entry: path.resolve(__dirname, "src/main.tsx"),
+      entry: path.resolve(__dirname, "src/main.ts"),
       name: "rootpay-secure-payment-sdk",
       //A function that generates the output file
       //name for different formats during the build
@@ -22,8 +22,8 @@ export default defineConfig({
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
-        },
-        exports: "default", // Ensure default export is included
+        }
+        // Removed 'exports: "default"' to allow named exports
       },
     },
     //Generates sourcemaps for the built files,
