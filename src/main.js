@@ -39,9 +39,6 @@ export class RootPaySDK {
     }
     subscribe(callback) {
         jotaiStore.set(subscriptionAtom, { subscribe: callback });
-        const currentValue = jotaiStore.get(subscriptionAtom);
-        console.log('::CUrrent CAL', currentValue, callback);
-        console.log('::SETTING STORE', callback);
     }
 }
 Object.defineProperty(RootPaySDK, "initializedCount", {
