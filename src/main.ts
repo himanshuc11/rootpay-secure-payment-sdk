@@ -1,7 +1,7 @@
 import type { SDKConfig, Result } from '../types/rootpay-secure-payment-sdk';
 import renderSdk from './main-react';
 import { Logger } from './utils/logger';
-import { jotaiStore, subscriptionAtom } from './jotai';
+import { jotaiStore, sdkAtom, subscriptionAtom } from './jotai';
 
 export class RootPaySDK {
     public static initializedCount = 0;
@@ -28,6 +28,7 @@ export class RootPaySDK {
         }
 
         renderSdk(rootElement)
+        jotaiStore.set(sdkAtom, this.config)
         this?.logger?.info("Rendered Rootpay SDK");
 
         if (this.config.theme) {

@@ -1,6 +1,6 @@
 import renderSdk from './main-react';
 import { Logger } from './utils/logger';
-import { jotaiStore, subscriptionAtom } from './jotai';
+import { jotaiStore, sdkAtom, subscriptionAtom } from './jotai';
 export class RootPaySDK {
     constructor(config) {
         Object.defineProperty(this, "config", {
@@ -30,6 +30,7 @@ export class RootPaySDK {
             Logger.throwError(`Element with ID "${this.config.rootId}" not found.`);
         }
         renderSdk(rootElement);
+        jotaiStore.set(sdkAtom, this.config);
         this?.logger?.info("Rendered Rootpay SDK");
         if (this.config.theme) {
             rootElement.style.color = this.config.theme.primaryColor;

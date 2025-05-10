@@ -22,8 +22,10 @@ export type Theme = {
  * Configuration options required to initialize the SDK
  */
 export type SDKConfig = {
-    /** Root Credit key for authentication */
-    key: string;
+    /** Root Credit clientId for authentication */
+    clientId: string;
+    /** Root Credit clientSecret for authentication */
+    clientSecret: string;
     /** Root element ID where SDK will be mounted */
     rootId: string;
     /** Environment mode for SDK */
