@@ -15,7 +15,6 @@ const SecurePaymentForm = () => {
   React.useEffect(() => {
 
     const handleMessage = (event: MessageEvent) => {
-      // TODO: Remove this hard-coding
       if (event.origin === 'https://rootpay-client-v5zx.vercel.app') {
         if(onSubmit) {
           onSubmit.subscribe(event.data);
