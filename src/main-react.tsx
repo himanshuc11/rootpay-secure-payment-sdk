@@ -5,11 +5,12 @@ import App from './App'
 
 
 function renderSdk(elem: HTMLElement) {
-  createRoot(elem!).render(
+  const root = createRoot(elem!).render(
     <StrictMode>
       <App />
     </StrictMode>,
   )
+  return root
 }
 
 export default renderSdk
