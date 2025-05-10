@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/main-react.tsx","./src/main.ts","./src/vite-env.d.ts","./src/utils/logger.ts"],"version":"5.8.3"}
+{"root":["./src/app.tsx","./src/main-react.tsx","./src/main.ts","./src/vite-env.d.ts","./src/jotai/index.ts","./src/utils/logger.ts"],"version":"5.8.3"}

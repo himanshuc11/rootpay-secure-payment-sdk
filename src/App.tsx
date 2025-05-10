@@ -1,15 +1,22 @@
+'use client'
 import React from "react";
-interface SecureFormProps {
-  onSubmit: (data: { cardNumber: string; expiryDate: string }) => void;
-}
+import { Provider, useAtomValue } from 'jotai'
+import { jotaiStore, subscriptionAtom } from "./jotai";
 
-const SecurePaymentForm: React.FC<SecureFormProps> = ({ onSubmit }) => {
+
+const SecurePaymentForm = () => {
+  const onSubmit = useAtomValue(subscriptionAtom)
   const iframeRef = React.useRef<HTMLIFrameElement>(null);
 
   React.useEffect(() => {
+
     const handleMessage = (event: MessageEvent) => {
-      if (event.origin === 'trusted-payment-domain') {
-        onSubmit(event.data);
+      // TODO: Remove this hard-coding
+      if (event.origin === 'http://localhost:3000') {
+        if(onSubmit) {
+          onSubmit.subscribe(event.data);
+        }
+    
       }
     };
 
@@ -17,6 +24,7 @@ const SecurePaymentForm: React.FC<SecureFormProps> = ({ onSubmit }) => {
     return () => window.removeEventListener('message', handleMessage);
   }, [onSubmit]);
 
+  // TODO: Remove this hard-coding
   return (
     <iframe
       ref={iframeRef}
@@ -28,14 +36,12 @@ const SecurePaymentForm: React.FC<SecureFormProps> = ({ onSubmit }) => {
 };
 
 function App() {
-  const handlePaymentSubmit = (data: { cardNumber: string; expiryDate: string }) => {
-    console.log('Payment data received:', data);
-  };
-
   return (
-    <div style={{width: "100%", height: "100%"}}>
-      <SecurePaymentForm onSubmit={handlePaymentSubmit} />
-    </div>
+    <Provider store={jotaiStore}>
+      <div style={{width: "100%", height: "100%"}}>
+        <SecurePaymentForm />
+      </div>
+    </Provider>
   );
 }
 

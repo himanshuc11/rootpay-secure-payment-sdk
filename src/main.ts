@@ -1,6 +1,7 @@
 import type { SDKConfig, Result } from '../types/rootpay-secure-payment-sdk';
 import renderSdk from './main-react';
 import { Logger } from './utils/logger';
+import { jotaiStore, subscriptionAtom } from './jotai';
 
 export class RootPaySDK {
     public static initializedCount = 0;
@@ -37,10 +38,6 @@ export class RootPaySDK {
     }
 
     subscribe(callback: (result: Result) => void): void {
-        const result: Result = {
-            status: "success",
-            message: "Done"
-        } 
-        callback(result)
+        jotaiStore.set(subscriptionAtom, { subscribe: callback })
     }
 }

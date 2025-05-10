@@ -1,5 +1,6 @@
 import renderSdk from './main-react';
 import { Logger } from './utils/logger';
+import { jotaiStore, subscriptionAtom } from './jotai';
 export class RootPaySDK {
     constructor(config) {
         Object.defineProperty(this, "config", {
@@ -37,11 +38,10 @@ export class RootPaySDK {
         }
     }
     subscribe(callback) {
-        const result = {
-            status: "success",
-            message: "Done"
-        };
-        callback(result);
+        jotaiStore.set(subscriptionAtom, { subscribe: callback });
+        const currentValue = jotaiStore.get(subscriptionAtom);
+        console.log('::CUrrent CAL', currentValue, callback);
+        console.log('::SETTING STORE', callback);
     }
 }
 Object.defineProperty(RootPaySDK, "initializedCount", {
