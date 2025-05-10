@@ -20,19 +20,9 @@ const SecurePaymentForm: React.FC<SecureFormProps> = ({ onSubmit }) => {
   return (
     <iframe
       ref={iframeRef}
-      style={{ width: '100%', height: '200px', border: 'none' }}
+      style={{ width: '100%', height: '100%', border: 'none' }}
       title="Secure Payment Form"
-      srcDoc={`
-        <html lang="en">
-        <head>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <title>Document</title>
-        </head>
-        <body>
-          <h1>Yo</h1>
-        </body>
-        </html>
-      `}
+      src="http://localhost:3000/?clientId=4fa7fa681e31c2bf513bb838a691d533d219fc53957e75d1ff422fcfe6dcb057&sessionToken=f3c1e979a06646f13a67dc43e8.1b35cabe1b8659956e99604197caaa4c&iv=32dc557333579c4a9d209f533a150d0e&mode=dev"
     />
   );
 };
@@ -43,8 +33,7 @@ function App() {
   };
 
   return (
-    <div>
-      <h1>YDKK</h1>
+    <div style={{width: "100%", height: "100%"}}>
       <SecurePaymentForm onSubmit={handlePaymentSubmit} />
     </div>
   );
