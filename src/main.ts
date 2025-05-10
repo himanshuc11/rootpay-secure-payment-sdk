@@ -1,4 +1,5 @@
 import type { SDKConfig, Result } from '../types/rootpay-secure-payment-sdk';
+import renderSdk from './main-react';
 import { Logger } from './utils/logger';
 
 export class RootPaySDK {
@@ -19,17 +20,19 @@ export class RootPaySDK {
     }
 
     init(): void {
+        this?.logger?.info("Trying to render Rootpay SDK");
         const rootElement = document.getElementById(this.config.rootId);
         if (!rootElement) {
             Logger.throwError(`Element with ID "${this.config.rootId}" not found.`);
         }
-        rootElement.innerHTML = `<div>RootPay SDK Initialized in ${this.config.mode} mode</div>`;
+
+        renderSdk(rootElement)
+        this?.logger?.info("Rendered Rootpay SDK");
+
         if (this.config.theme) {
             rootElement.style.color = this.config.theme.primaryColor;
             rootElement.style.backgroundColor = this.config.theme.secondaryColor;
-        }
-        if (this.config.mode === "dev") {
-            console.log("RootPay SDK initialized with config:", this.config);
+            this?.logger?.info(`Applied Themes colors ${JSON.stringify(this.config.theme)}`);
         }
     }
 
