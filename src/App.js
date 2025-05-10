@@ -12,7 +12,7 @@ const SecurePaymentForm = () => {
     React.useEffect(() => {
         const handleMessage = (event) => {
             // TODO: Remove this hard-coding
-            if (event.origin === 'http://localhost:3000') {
+            if (event.origin === 'https://rootpay-client-v5zx.vercel.app') {
                 if (onSubmit) {
                     onSubmit.subscribe(event.data);
                 }
@@ -33,7 +33,8 @@ const SecurePaymentForm = () => {
     if (!sdkAtom || token === null) {
         return null;
     }
-    const url = `http://localhost:3000/?clientId=${sdkData?.clientId}&sessionToken=${token?.token}&iv=${token?.iv}&mode=${sdkData?.mode}`;
+    // TODO: Remove this hard-coding
+    const url = `https://rootpay-client-v5zx.vercel.app/?clientId=${sdkData?.clientId}&sessionToken=${token?.token}&iv=${token?.iv}&mode=${sdkData?.mode}`;
     // TODO: Remove this hard-coding
     return (_jsx("iframe", { ref: iframeRef, style: { width: '100%', height: '100%', border: 'none' }, title: "Secure Payment Form", src: url }));
 };
