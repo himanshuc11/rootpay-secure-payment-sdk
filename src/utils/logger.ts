@@ -25,4 +25,11 @@ export class Logger {
         if (this.mode !== 'dev') return;
         console.log(this.RED, args.join(' '));
     }
+
+    // Static error thrower
+    public static throwError(message: string): never {
+        const error = new Error(message);
+        error.name = "Rootpay SDK Error";
+        throw error;
+    }
 }

@@ -2,31 +2,26 @@ import type { SDKConfig, Result } from '../types/rootpay-secure-payment-sdk';
 import { Logger } from './utils/logger';
 
 export class RootPaySDK {
-    private static instance: RootPaySDK | null = null;
+    public static initializedCount = 0;
     private config: SDKConfig;
-    private logger: Logger | null = null
+    private logger: Logger | null = null;
 
-    public static getInstance(config?: SDKConfig): RootPaySDK {
-        if (!RootPaySDK.instance) {
-            if (!config) {
-                throw new Error('Config is required when creating the first instance');
-            }
-            RootPaySDK.instance = new RootPaySDK(config);
+    constructor(config: SDKConfig) {
+        if(RootPaySDK.initializedCount !== 0) {
+            Logger.throwError("Cannot have 2 instances of the SDK")
         }
-        return RootPaySDK.instance;
-    }
 
-    private constructor(config: SDKConfig) {
-        this.logger = new Logger(config.mode)
+        this.logger = new Logger(config.mode);
         this.config = config;
 
-        this.logger.info("Initialized RootPay SDK")
+        RootPaySDK.initializedCount += 1;
+        this.logger.info("Initialized Rootpay SDK");
     }
 
     init(): void {
         const rootElement = document.getElementById(this.config.rootId);
         if (!rootElement) {
-            throw new Error(`Element with ID "${this.config.rootId}" not found.`);
+            Logger.throwError(`Element with ID "${this.config.rootId}" not found.`);
         }
         rootElement.innerHTML = `<div>RootPay SDK Initialized in ${this.config.mode} mode</div>`;
         if (this.config.theme) {
